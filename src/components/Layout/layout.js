@@ -2,16 +2,28 @@ import style from './style.module.css';
 
 const Layout = (props) => {
   // console.log(props);
-  const { title, descr, urlBg, colorBg } = props;
+  const { id, title, urlBg, colorBg, children } = props;
+  // console.log('children', children);
+  
+  // const styleRoot = {}
+  // if (urlBg) {
+  //   styleRoot.backgroundImage = `url(${urlBg})`
+  // }
+
+  // if (colorBg) {
+  //   styleRoot.backgroundColor = colorBg
+  // }
 
   const styleRoot = urlBg ? {backgroundImage: `url(${urlBg})`} : { backgroundColor: colorBg}
 
   return (
-    <section className={style.root} style={styleRoot}>
+    <section 
+      className={style.root} 
+      style={styleRoot}
+      id={id}
+    >
       <div className={style.wrapper}>
-        <article 
-          // style={{display: 'block'}}
-        >
+        <article>
 
           <div className={style.title}>
             { title && (<h3>{title}</h3>)}
@@ -19,15 +31,8 @@ const Layout = (props) => {
           </div>
 
           <div className={`${style.desc} ${style.full}`}>
-            { descr && 
-              (
-              <p 
-                // style={{textAlign: 'center'}}
-              >
-                {descr}
-              </p>
-              )
-            }
+            {/* { descr && (<p>{descr}</p>) } */}
+            {children}
           </div>
           
         </article>
