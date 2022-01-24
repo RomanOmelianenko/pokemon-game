@@ -1,3 +1,6 @@
+// import React from 'react';
+import classNames from 'classnames';
+
 import style from './style.module.css';
 
 const Layout = (props) => {
@@ -30,7 +33,7 @@ const Layout = (props) => {
             <span className={style.separator}></span>
           </div>
 
-          <div className={`${style.desc} ${style.full}`}>
+          <div className={classNames(style.desc, style.full)}>
             {/* { descr && (<p>{descr}</p>) } */}
             {children}
           </div>

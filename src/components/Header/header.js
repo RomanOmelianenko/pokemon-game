@@ -1,13 +1,15 @@
+// import React from 'react';
+
 import style from './style.module.css';
 
 const Header = (props) => {
-  const { title, descr } = props;
+  const { title, descr, onClickButton } = props;
 
-  // let count = 1;
-  // setInterval(() => {
-  //   count++;
-  //   console.log('Count', count);
-  // }, 1000);
+  const handleClick = () => {
+    console.log('####: <Header />');
+
+     onClickButton && onClickButton('game');
+  }
 
   return (
     <header className={style.root}>
@@ -15,6 +17,9 @@ const Header = (props) => {
       <div className={style.container}>
         <h1>{title}</h1>
         <p>{descr}</p>
+        <button onClick={handleClick}>
+          Start Game
+        </button>
       </div>
     </header>
   )
