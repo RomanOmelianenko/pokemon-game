@@ -85,4 +85,48 @@
   font-weight: normal;
   color: #fafafa;
   line-height: 32px;
+  margin-bottom: 14px;
 }
+
+.headerBtn {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 30px;
+  /* width: 140px; */
+  /* position: relative;*/
+  border: none; 
+  border-radius: 6px;
+  transition: 400ms ease-in;
+  cursor: pointer;
+  font-size: 16px;
+  text-transform: uppercase;
+  background-color: #f300b4;
+  color: #fff;
+}
+
+/* .headerBtn::before,
+.headerBtn::after {
+  position: absolute;
+  content: '';
+  z-index: -1;
+} */
+
+.headerBtn:hover {
+  box-shadow: inset -10.5em 0 0 0 #fff, inset 10.5em 0 0 0 #fff;
+  color: #000;
+}
+
+/* .headerBtn::after {
+  width: 0;
+  height: 100%;
+  left: -35%;
+  top: 0;
+  transform: skew(50deg);
+  transition-duration: 600ms;
+  transform-origin: top left;
+}
+
+.headerBtn:hover:after {
+  width: 135%;
+  height: 100%;
+} */

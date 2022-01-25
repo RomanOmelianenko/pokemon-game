@@ -1,21 +1,26 @@
 // import React, { useState } from "react";
 
+import s from './style.module.css';
+
 const GamePage = ({ onChangePage }) => {
 
   // const [page, setPage] = useState('game')
 
   const handleClick = (page) => {
-    console.log('####: <GamePage />');
+    // console.log('####: <GamePage />');
 
     onChangePage && onChangePage(page);
     // setPage(page);
   };
 
   return (
-    <div>
+    <div className={s.game}>
       This is Game Page!!!
-      <button onClick={handleClick}>
-        Go Home Page
+      <button 
+        onClick={handleClick}
+        className={s.headerBtn}
+      >
+        Back to home
       </button>
     </div>
   )

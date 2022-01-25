@@ -1,23 +1,23 @@
 // import React from 'react';
 
-import style from './style.module.css';
+import s from './style.module.css';
 
 const Header = (props) => {
   const { title, descr, onClickButton } = props;
 
   const handleClick = () => {
-    console.log('####: <Header />');
+    // console.log('####: <Header />');
 
      onClickButton && onClickButton('game');
   }
 
   return (
-    <header className={style.root}>
-      <div className={style.forest}></div>
-      <div className={style.container}>
+    <header className={s.root}>
+      <div className={s.forest}></div>
+      <div className={s.container}>
         <h1>{title}</h1>
         <p>{descr}</p>
-        <button onClick={handleClick}>
+        <button className={s.headerBtn} onClick={handleClick}>
           Start Game
         </button>
       </div>

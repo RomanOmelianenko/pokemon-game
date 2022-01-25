@@ -2,6 +2,7 @@ import Header from "../../components/Header/header";
 import Layout from "../../components/Layout/layout";
 import Footer from "../../components/Footer/footer";
 import PokemonCard from "../../components/PokemonCard/pokemon";
+import MenuHeader from '../../components/MenuHeader/menuheader';
 
 import POKEMONS from '../../db/db.json'
 
@@ -15,13 +16,14 @@ const HomePage = ({onChangePage}) => {
 
 
   const handleClickButton = (page) => {
-    console.log('####: <HomePage />');
+    // console.log('####: <HomePage />');
 
     onChangePage && onChangePage(page);
   };
 
   return (
     <>
+      <MenuHeader />
       <Header 
         title='Pockemon Game' 
         descr='This is simple triple triad card game'
