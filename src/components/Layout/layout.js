@@ -1,4 +1,7 @@
-import style from './style.module.css';
+// import React from 'react';
+import classNames from 'classnames';
+
+import s from './style.module.css';
 
 const Layout = (props) => {
   // console.log(props);
@@ -18,19 +21,19 @@ const Layout = (props) => {
 
   return (
     <section 
-      className={style.root} 
+      className={s.root} 
       style={styleRoot}
       id={id}
     >
-      <div className={style.wrapper}>
+      <div className={s.wrapper}>
         <article>
 
-          <div className={style.title}>
+          <div className={s.title}>
             { title && (<h3>{title}</h3>)}
-            <span className={style.separator}></span>
+            <span className={s.separator}></span>
           </div>
 
-          <div className={`${style.desc} ${style.full}`}>
+          <div className={classNames(s.desc, s.full)}>
             {/* { descr && (<p>{descr}</p>) } */}
             {children}
           </div>
