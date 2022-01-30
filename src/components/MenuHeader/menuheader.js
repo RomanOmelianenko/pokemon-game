@@ -14,7 +14,6 @@ const MenuHeader = ({bgActive}) => {
     <>
       <Menu 
         isOpen={isOpen} 
-        // onClickHumburg={handleClickHumburg}
       />
       <Navbar 
         isOpen={isOpen} 

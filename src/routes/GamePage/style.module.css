@@ -1,22 +1,23 @@
-.game {
-  /* display: block; */
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* .game {
   margin-top: 15px;
   margin-left: 15px;
 }
 
 .headerBtn {
-  /* display: block; */
-  /* margin: 0 auto; */
   margin-left: 10px;
   margin-top: 10px;
   padding: 5px 30px;
-  /* width: 140px; */
-  /* position: relative;*/
   border: none; 
   border-radius: 6px;
   transition: 400ms ease-in;
   cursor: pointer;
-  /* font-size: 20px; */
   text-transform: uppercase;
   background-color: #f300b4;
   color: #fff;
@@ -25,4 +26,4 @@
 .headerBtn:hover {
   box-shadow: inset -10.5em 0 0 0 #fff, inset 10.5em 0 0 0 #fff;
   color: #000;
-}
+} */
