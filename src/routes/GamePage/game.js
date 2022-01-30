@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import { useHistory } from 'react-router-dom';
 
 import PokemonCard from '../../components/PokemonCard/pokemon';
-import POKEMONS from '../../db/db.json';
+// import POKEMONS from '../../db/db.json';
+
+import database from "../../services/firebase";
 
 import s from './style.module.css';
 
@@ -14,7 +16,16 @@ const GamePage = ({ onChangePage }) => {
   //   history.push('/');
   // };
 
-  const [pokemons, setPokemons] = useState(POKEMONS);
+  // const [pokemons, setPokemons] = useState({POKEMONS});
+
+  const [pokemons, setPokemons] = useState({});
+
+  // Получаем данные с базы
+  useEffect(() => {
+    database.ref('pokemons').once('value', (snapshot) => {
+      setPokemons(snapshot.val());
+    })
+  }, []);
 
   const handleChangeActive = (id) => {
     setPokemons(prevState => {
@@ -30,18 +41,31 @@ const GamePage = ({ onChangePage }) => {
   return (
     <div className={s.flex}>
       {
-        pokemons.map(({name, img, id, type, values, active}) => (
+        // В firebase не массив, а обьект и для того чтобы отображались покемоны надо обернуть в Object.entries() и ог возвращает масив масивов
+        Object.entries(pokemons).map(([key, {name, img, id, type, values, active}]) => (
           <PokemonCard 
-            key={id}
+            key={key}
             name={name}
             img={img}
             id={id}
             type={type}
             values={values}
-            isActive={active}
+            isActive={true}
             onClickCard={handleChangeActive}
           />
         ))
+        // pokemons.map(({name, img, id, type, values, active}) => (
+        //   <PokemonCard 
+        //     key={id}
+        //     name={name}
+        //     img={img}
+        //     id={id}
+        //     type={type}
+        //     values={values}
+        //     isActive={active}
+        //     onClickCard={handleChangeActive}
+        //   />
+        // ))
       }
     </div>
 

@@ -6,19 +6,20 @@ const MenuHeader = ({bgActive}) => {
 
   const [isOpen, setOpen] = useState(null);
 
-  const handleClickHumburg = () => {
+  const handleClickHamburg = () => {
     setOpen(prevState => !prevState)
   };
 
   return (
     <>
       <Menu 
-        isOpen={isOpen} 
+        isOpen={isOpen}
+        onCloseHamburg={handleClickHamburg}
       />
       <Navbar 
         isOpen={isOpen} 
         bgActive={bgActive} 
-        onClickHumburg={handleClickHumburg} 
+        onClickHamburg={handleClickHamburg} 
       />
     </>
   )
