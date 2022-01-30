@@ -1,4 +1,5 @@
 // import React from "react";
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
 import s from './style.module.css';
@@ -6,19 +7,19 @@ import s from './style.module.css';
 const MENU = [
   {
     title: 'HOME',
-    to: '#welcome'
+    to: 'welcome'
   },
   {
     title: 'GAME',
-    to: '#game'
+    to: 'game'
   },
   {
     title: 'ABOUT',
-    to: '#about'
+    to: 'about'
   },
   {
     title: 'CONTACT',
-    to: '#contact'
+    to: 'contact'
   }
 ]
 
@@ -35,9 +36,9 @@ const Menu = ({isOpen}) => {
           {
             MENU.map(({title, to}, index) => (
               <li key={index}>
-                <a href={to}>
+                <Link to={to}>
                   {title}
-                </a>
+                </Link>
               </li>
             ))
           }
