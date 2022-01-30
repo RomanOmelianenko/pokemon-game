@@ -1,16 +1,20 @@
 // import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
 
 import s from './style.module.css';
 
 const GamePage = ({ onChangePage }) => {
+  const history = useHistory();
 
   // const [page, setPage] = useState('game')
 
   const handleClick = (page) => {
     // console.log('####: <GamePage />');
 
-    onChangePage && onChangePage(page);
+    // onChangePage && onChangePage(page);
     // setPage(page);
+
+    history.push('/');
   };
 
   return (
