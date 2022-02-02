@@ -23,11 +23,11 @@ const MENU = [
   }
 ]
 
-const Menu = ({isOpen}) => {
+const Menu = ({isOpen, onCloseHamburg}) => {
   return (
     <div className={classNames(s.menuContainer, {
       [s.active]: isOpen === true,
-      [s.deactive]: isOpen === false
+      [s.deactive]: isOpen === false,
     })}>
       <div className={s.overlay} />
       <div className={s.menuItems}>
@@ -36,7 +36,7 @@ const Menu = ({isOpen}) => {
           {
             MENU.map(({title, to}, index) => (
               <li key={index}>
-                <Link to={to}>
+                <Link to={to} onClick={onCloseHamburg}>
                   {title}
                 </Link>
               </li>

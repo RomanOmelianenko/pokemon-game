@@ -10,7 +10,14 @@ import AboutPage from "./routes/AboutPage/about";
 import ContactPage from "./routes/ContactPage/contact";
 import NotFoundPage from "./routes/NotFoundPage/notFound";
 
+// import database from "./services/firebase";
+
 import s from './style.module.css';
+
+// Получаем данные с базы
+// database.ref('pokemons').once('value', (snapshot) => {
+//   console.log('####: snapshot', snapshot.val());
+// });
 
 const App = () => {
   const match = useRouteMatch('/');

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import s from './style.module.css';
 
 const Navbar = (props) => {
-  const { isOpen, bgActive = false, onClickHumburg } = props;
+  const { isOpen, bgActive = false, onClickHamburg } = props;
 
   return (
     <nav 
@@ -19,7 +19,7 @@ const Navbar = (props) => {
           className={classNames(s.menuButton, {
             [s.active]: isOpen
           })}
-          onClick={onClickHumburg}
+          onClick={onClickHamburg}
         >
           <span />
         </div>
