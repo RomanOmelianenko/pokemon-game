@@ -17,6 +17,7 @@ const PokemonCard = ( props, /*{...props }*/) => {
   const handleClick = () => {
     // console.log('Click to Pokemon with name' + name)
     setActive(!isActive);
+    // console.log('isActive Pokemon' + " " + name, isActive);
   };
 
   return (
