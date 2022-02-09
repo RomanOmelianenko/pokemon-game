@@ -1,58 +1,86 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from 'react-router-dom';
 
 import PokemonCard from '../../components/PokemonCard/pokemon';
-// import POKEMONS from '../../db/db.json';
 
 import database from "../../services/firebase";
+import data from '../../db/data.json';
+import { FireBaseContext } from "../../context/firebaseContext";
 
 import s from './style.module.css';
 
-const GamePage = ({ onChangePage }) => {
+const DATA = data;
+
+const GamePage = () => {
   const history = useHistory();
 
-  const handleClick = (page) => {
-
+  const handleClickToHome = (page) => {
     history.push('/');
   };
 
-  // const [pokemons, setPokemons] = useState({POKEMONS});
+  const firebase = useContext(FireBaseContext);
 
   const [pokemons, setPokemons] = useState({});
 
+  console.log('####: firebase', firebase);
+
   // Получаем данные с базы
+  // const getPokemons = async () => {
+  //   const response = await firebase.getPokemonsOnce();
+  //   // console.log('####: response', response);
+  // };
+
   useEffect(() => {
-    database.ref('pokemons').once('value', (snapshot) => {
-      setPokemons(snapshot.val());
-    })
+    // getPokemons();
+    firebase.getPokemonSocet((pokemons) => {
+      setPokemons(pokemons);
+    });
   }, []);
 
+  // Состояние переворачивания карточки которое записывается в базу
   const handleChangeActive = (id) => {
-    // console.log('Click');
     setPokemons(prevState => {
-      return Array.from(prevState, (item) => {
-        
-        if (item.id === id) {
-          item.active = true;
-        }
-        return item;
-      })
-    });
+      return Object.entries(prevState).reduce((acc, item) => {
+        const pokemon = {...item[1]};
+        if (pokemon.id === id) {
+          pokemon.active = !pokemon.active;
+        };
 
-    // setPokemons(prevState => {
-    //   return Object.entries(prevState).reduce((acc, item) => {
-    //     const pokemon = {...item[1]};
-    //     if (pokemon.id === id) {
-    //       pokemon.active = true;
-    //     };
-    //     acc[item[0]] = pokemon;
-    //     return acc;
-    //   }, {});
-    // });
+        acc[item[0]] = pokemon;
+
+        // database.ref('pokemons/' + item[0]).set(pokemon)
+
+        firebase.postPokemons(item[0], pokemon)
+
+        return acc;
+      }, {});
+    });
+  };
+
+  // Добавляются карточки из базы
+  const handleAddPokemon = () => {
+    const data = DATA;
+    // const newKey = database.ref().child('pokemons').push().key;
+    // database.ref('pokemons/' + newKey).set(data).then(() => getPokemons());
+    firebase.addPokemon(data);
   };
 
   return (
     <>
+      <div className={s.buttons}>
+        <button 
+          className={s.headerBtn}
+          onClick={handleClickToHome}
+        >
+          Back to home
+        </button>
+        <button 
+          className={s.headerBtn}
+          onClick={handleAddPokemon}
+        >
+          Add new pokemon
+        </button>
+      </div>
       <div className={s.flex}>
         {
           // В firebase не массив, а обьект и для того чтобы отображались покемоны надо обернуть в Object.entries() и он возвращает массив массивов
@@ -64,41 +92,13 @@ const GamePage = ({ onChangePage }) => {
               id={id}
               type={type}
               values={values}
-              isActive={true}
+              isActive={active}
               onClickCard={handleChangeActive}
             />
           ))
-          // pokemons.map(({name, img, id, type, values, active}) => (
-          //   <PokemonCard 
-          //     key={id}
-          //     name={name}
-          //     img={img}
-          //     id={id}
-          //     type={type}
-          //     values={values}
-          //     isActive={active}
-          //     onClickCard={handleChangeActive}
-          //   />
-          // ))
         }
       </div>
-      <button 
-        className={s.headerBtn}
-        onClick={handleClick}
-      >
-        Back to home
-      </button>
     </>
-
-    // <div className={s.game}>
-    //   This is Game Page!!!
-    //   <button 
-    //     onClick={handleClick}
-    //     className={s.headerBtn}
-    //   >
-    //     Back to home
-    //   </button>
-    // </div>
   )
 };
 
