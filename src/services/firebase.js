@@ -11,17 +11,19 @@ const firebaseConfig = {
   appId: "1:681582125262:web:4cd69385ece8a6f3c0709f"
 };
 
+firebase.initializeApp(firebaseConfig);
+
 class Firebase {
   constructor() {
     // firebase.initializeApp(firebaseConfig); - выдавало в консоли ошибку errors.ts:91 Uncaught FirebaseError: Firebase: Firebase App named '[DEFAULT]' already exists (app/duplicate-app).
 
     // Через if else проблема решилась
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
+    // if (!firebase.apps.length) {
+    //   firebase.initializeApp(firebaseConfig);
       
-    } else {
-      firebase.app();
-    }
+    // } else {
+    //   firebase.app();
+    // }
 
     this.fire = firebase;
     this.database = this.fire.database();
@@ -32,6 +34,11 @@ class Firebase {
     this.database.ref('pokemons').on('value', (snapshot) => {
       callback(snapshot.val());
     });
+  };
+
+  // Надо отписать от событий socet соединения (после перехода на другую страницу пытается записать то, чего уже не существует). Отписываемся от событий
+  offPokemonSocet = () => {
+    this.database.ref('pokemons').off();
   };
 
   // Получаем все покемонов один раз

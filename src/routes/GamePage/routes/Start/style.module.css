@@ -1,15 +1,21 @@
-.flex {
+/* .flex {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   margin-bottom: 30px;
+} */
+
+.flex {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 40px;
 }
 
 .buttons {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .headerBtn {
@@ -31,3 +37,9 @@
 /* .headerBtn:not(:last-child) {
   margin-bottom: 20px;
 } */
+
+.card {
+  width: 100%;
+  height: 380px;
+  cursor: pointer;
+}
