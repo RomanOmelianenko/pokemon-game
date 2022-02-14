@@ -61,6 +61,12 @@ animation: flipFront 1000ms 300ms forwards;
   z-index: 2;
 }
 
+.pokemonCard:active .wrap.front::after,
+.pokemonCard:focus .wrap.front::after {
+  /* border-color: var(--rock); */
+  border-color: #ffa500;
+}
+
 .wrap {
   position: absolute;
   top: 0;

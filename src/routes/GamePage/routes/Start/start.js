@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import PokemonCard from '../../../../components/PokemonCard/pokemon';
 
 import { FireBaseContext } from "../../../../context/firebaseContext";
+import { PokemonContext } from "../../../../context/pokemonContext";
 
 import s from './style.module.css';
 
@@ -15,6 +16,9 @@ const StartPage = () => {
   };
 
   const firebase = useContext(FireBaseContext);
+
+  const pokemonsContext = useContext(PokemonContext);
+  // console.log('####: pokemonsContext', pokemonsContext);
 
   const [pokemons, setPokemons] = useState({});
 
@@ -33,10 +37,14 @@ const StartPage = () => {
     });
 
     return () => firebase.offPokemonSocet();
-  }, []);
+  }, [firebase]);
 
   // Состояние переворачивания карточки которое записывается в базу
   const handleChangeSelected = (key) => {
+    const pokemon = {...pokemons[key]};
+
+    pokemonsContext.onSelectedPokemons(key, pokemon);
+
     setPokemons(prevState => ({
       ...prevState,
       [key]: {
@@ -44,6 +52,10 @@ const StartPage = () => {
         selected: !prevState[key].selected,
       }
     }))
+  };
+
+  const handleStartGameClick = () => {
+    history.push('/game/board');
   };
 
   return (
@@ -57,6 +69,8 @@ const StartPage = () => {
         </button>
         <button 
           className={s.headerBtn}
+          onClick={handleStartGameClick}
+          disabled={Object.keys(pokemonsContext.pokemons).length < 5}
         >
           Start game
         </button>
@@ -75,7 +89,11 @@ const StartPage = () => {
               values={values}
               isActive={true}
               isSelected={selected}
-              onClickCard={() => handleChangeSelected(key)}
+              onClickCard={() => {
+                if (Object.keys(pokemonsContext.pokemons).length < 5 || selected) {
+                  handleChangeSelected(key);
+                };
+              }}
             />
           ))
         }
