@@ -12,8 +12,52 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-export const fire = firebase;
-export const database = fire.database();
 
-export default database;
+class Firebase {
+  constructor() {
+    // firebase.initializeApp(firebaseConfig); - выдавало в консоли ошибку errors.ts:91 Uncaught FirebaseError: Firebase: Firebase App named '[DEFAULT]' already exists (app/duplicate-app).
+
+    // Через if else проблема решилась
+    // if (!firebase.apps.length) {
+    //   firebase.initializeApp(firebaseConfig);
+      
+    // } else {
+    //   firebase.app();
+    // }
+
+    this.fire = firebase;
+    this.database = this.fire.database();
+  };
+
+  // Socet
+  getPokemonSocet = (callback) => {
+    this.database.ref('pokemons').on('value', (snapshot) => {
+      callback(snapshot.val());
+    });
+  };
+
+  // Надо отписать от событий socet соединения (после перехода на другую страницу пытается записать то, чего уже не существует). Отписываемся от событий
+  offPokemonSocet = () => {
+    this.database.ref('pokemons').off();
+  };
+
+  // Получаем все покемонов один раз
+  getPokemonsOnce = async () => {
+    return await this.database.ref('pokemons').once('value').then(snapshot => 
+      snapshot.val());
+  };
+
+  // Обновляем одного покемона
+  postPokemons = (key, pokemon) => {
+    this.database.ref(`pokemons/${key}`).set(pokemon);
+  };
+
+  // Добавляем покемона
+  addPokemon = (data, callback) => {
+    const newKey = this.database.ref().child('pokemons').push().key;
+    this.database.ref('pokemons/' + newKey).set(data).then(() => callback());
+  };
+};
+
+export default Firebase;
 

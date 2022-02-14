@@ -1,4 +1,4 @@
-// import React, { useState } from "react";
+import React, { useState } from "react";
 import { useRouteMatch, Switch, Route, Redirect } from "react-router-dom";
 import classNames from "classnames";
 
@@ -10,20 +10,20 @@ import AboutPage from "./routes/AboutPage/about";
 import ContactPage from "./routes/ContactPage/contact";
 import NotFoundPage from "./routes/NotFoundPage/notFound";
 
-// import database from "./services/firebase";
+// import { TestContext } from "./context/testContext";
+import { FireBaseContext } from './context/firebaseContext';
+import Firebase from './services/firebase';
 
 import s from './style.module.css';
 
-// Получаем данные с базы
-// database.ref('pokemons').once('value', (snapshot) => {
-//   console.log('####: snapshot', snapshot.val());
-// });
-
 const App = () => {
+
   const match = useRouteMatch('/');
-  // console.log('####: match', match);
+
   return (
-    
+    <FireBaseContext.Provider 
+      value={new Firebase()}
+    >
       <Switch>
         <Route path='/404' component={NotFoundPage}
           // render={() => (
@@ -57,6 +57,7 @@ const App = () => {
           </>
         </Route>
       </Switch>
+    </FireBaseContext.Provider>
   )
 };
 
