@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useRouteMatch, Switch, Route, Redirect } from "react-router-dom";
+// import React, { useState } from "react";
+import { useLocation, Switch, Route, Redirect } from "react-router-dom";
 import classNames from "classnames";
 
 import HomePage from "./routes/HomePage/home";
@@ -18,7 +18,9 @@ import s from './style.module.css';
 
 const App = () => {
 
-  const match = useRouteMatch('/');
+  // const match = useRouteMatch('/');
+  const location = useLocation();
+  const isPadding = location.pathname === '/' || location.pathname === '/game/board';
 
   return (
     <FireBaseContext.Provider 
@@ -32,11 +34,11 @@ const App = () => {
         />
         <Route>
           <>
-            <MenuHeader bgActive={!match.isExact} />
-              <div className={classNames(s.wrap, {[s.isHomePage]: match.isExact})}>
+            <MenuHeader bgActive={!isPadding} />
+              <div className={classNames(s.wrap, {[s.isHomePage]: isPadding})}>
                 <Switch>
                   <Route path='/' exact component={HomePage} />
-                  <Route path='/home' component={HomePage} />
+                  <Route path='/welcome' component={HomePage} />
                   <Route path='/game' component={GamePage} />
                   <Route path='/about' component={AboutPage}
                     // render={() => (
